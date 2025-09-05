@@ -3,6 +3,11 @@ const creatElements = (arr) => {
   const htmlElemets = arr.map((el) => `<span class ="btn">${el}</span>`);
   return htmlElemets.join(" ");
 };
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
 const manageSpinner = (status) => {
   if (status == true) {
     document.getElementById("spinner").classList.remove("hidden");
@@ -71,7 +76,8 @@ const displayWordDetails = (word) => {
           </div>`;
   document.getElementById("word-modal").showModal();
 };
-// Function display level word
+
+// Function display level word || loading the words funtion
 
 const displayLevelWord = (words) => {
   const worContainer = document.getElementById("word-container");
@@ -115,7 +121,9 @@ const displayLevelWord = (words) => {
           })" class="btn bg-sky-50 hover:bg-sky-500">
             <i class="fa-solid fa-circle-info"></i>
           </button>
-          <button class="btn bg-sky-50 hover:bg-sky-500">
+          <button onCLick="pronounceWord('${
+            word.word
+          }')" class="btn bg-sky-50 hover:bg-sky-500">
             <i class="fa-solid fa-volume-high"></i>
           </button>
         </div>
